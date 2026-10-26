@@ -1,0 +1,65 @@
+<section class="page">
+  <div class="actions">
+    <button type="button" (click)="print()" [disabled]="!order">Print / Save PDF</button>
+    <button type="button" (click)="download()" [disabled]="!order">Download HTML</button>
+    <a routerLink="/orders">Order history</a>
+    <a routerLink="/">Continue shopping</a>
+  </div>
+
+  @if (order; as savedOrder) {
+    <article class="invoice" #invoice>
+      <header class="invoice-header">
+        <div>
+          <div class="brand">Thread<span>&amp;</span>Co.</div>
+          <div class="muted">Everyday clothing. Everyday confidence.</div>
+          <div class="muted">hello@threadandco.example</div>
+        </div>
+        <div class="right">
+          <div class="invoice-label">INVOICE</div>
+          <strong>{{ savedOrder.id }}</strong>
+          <div class="muted">{{ savedOrder.date | date:'mediumDate' }}</div>
+        </div>
+      </header>
+
+      <section class="customer">
+        <div class="label">Bill to</div>
+        <strong>{{ savedOrder.customer.name }}</strong>
+        <div>{{ savedOrder.customer.address }}</div>
+        <div>{{ savedOrder.customer.city }}</div>
+        <div>{{ savedOrder.customer.email }}</div>
+        <div>{{ savedOrder.customer.phone }}</div>
+        <div>Payment: {{ savedOrder.customer.payment }}</div>
+      </section>
+
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Size</th><th class="right-cell">Price</th><th class="right-cell">Qty</th><th class="right-cell">Amount</th></tr>
+        </thead>
+        <tbody>
+          @for (item of savedOrder.items; track $index) {
+            <tr>
+              <td>{{ item.name }}</td><td>{{ item.size }}</td>
+              <td class="right-cell">{{ item.price | currency:'USD':'symbol':'1.2-2' }}</td>
+              <td class="right-cell">{{ item.qty }}</td>
+              <td class="right-cell">{{ (item.price * item.qty) | currency:'USD':'symbol':'1.2-2' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <section class="totals">
+        <div><span>Subtotal</span><span>{{ savedOrder.subtotal | currency:'USD':'symbol':'1.2-2' }}</span></div>
+        <div><span>Shipping</span><span>{{ savedOrder.shipping ? (savedOrder.shipping | currency:'USD':'symbol':'1.2-2') : 'Free' }}</span></div>
+        <div><span>Tax</span><span>{{ savedOrder.tax | currency:'USD':'symbol':'1.2-2' }}</span></div>
+        <div class="grand"><span>Total</span><span>{{ savedOrder.total | currency:'USD':'symbol':'1.2-2' }}</span></div>
+      </section>
+      <footer class="thanks"><strong>Thank you for shopping with Thread&amp;Co!</strong><p>We appreciate your order.</p></footer>
+    </article>
+  } @else {
+    <div class="empty">
+      <h1>No invoice found</h1>
+      <p>Complete an order before viewing your invoice.</p>
+      <a routerLink="/">Return to Thread&amp;Co</a>
+    </div>
+  }
+</section>

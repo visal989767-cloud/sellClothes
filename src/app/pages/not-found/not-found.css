@@ -1,0 +1,30 @@
+.not-found {
+  display: grid;
+  min-height: 55vh;
+  place-content: center;
+  justify-items: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+span {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 9px 0;
+  font-size: 34px;
+}
+
+p {
+  margin: 0 0 18px;
+  color: #687386;
+}
+
+a {
+  color: #2563eb;
+  font-weight: 650;
+}

@@ -1,0 +1,82 @@
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">A new season, a fresh start</span>
+      <h1>Everyday style.<br><span>Made for real life.</span></h1>
+      <p>Comfortable, thoughtfully chosen pieces that make getting dressed feel effortless.</p>
+      <button class="button primary" type="button" (click)="scrollToCatalog()">Shop the collection <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="highlights" aria-label="Shopping benefits">
+      <div><strong>Easy returns</strong><span>30 days to decide</span></div>
+      <div><strong>Free delivery</strong><span>On orders over $100</span></div>
+      <div><strong>Everyday essentials</strong><span>Made to wear on repeat</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div><span>✦</span><p><strong>Quality first</strong><small>Everyday essentials</small></p></div>
+  <div><span>↗</span><p><strong>Free shipping</strong><small>Orders over $100</small></p></div>
+  <div><span>↺</span><p><strong>Easy returns</strong><small>30 days to decide</small></p></div>
+  <div><span>♡</span><p><strong>Made for you</strong><small>Style without limits</small></p></div>
+</section>
+
+<section class="catalog section" id="catalog">
+  <div class="section-head">
+    <div>
+      <p class="kicker">Find your favorites</p>
+      <h2>Shop the collection</h2>
+      <p class="muted">Good clothes. Great fit. Your own kind of style.</p>
+    </div>
+    <span class="product-count">{{ visibleProducts.length }} products</span>
+  </div>
+
+  <div class="tools">
+    <label class="search">
+      <span aria-hidden="true">⌕</span>
+      <input type="search" [value]="searchText"
+        (input)="searchText = $any($event.target).value"
+        aria-label="Search clothing" placeholder="Search name, style...">
+    </label>
+    <div class="chips" aria-label="Product categories">
+      @for (item of categories; track item) {
+        <button type="button" class="chip" [class.active]="category === item"
+          [attr.aria-pressed]="category === item" (click)="category = item">
+          {{ item }}
+        </button>
+      }
+    </div>
+    <label class="sort-label">Sort
+      <select [value]="sortBy" (change)="sortBy = $any($event.target).value" aria-label="Sort products">
+        <option value="featured">Featured</option>
+        <option value="asc">Price: Low to High</option>
+        <option value="desc">Price: High to Low</option>
+        <option value="name">Name: A to Z</option>
+      </select>
+    </label>
+  </div>
+
+  @if (visibleProducts.length) {
+    <div class="grid">
+      @for (product of visibleProducts; track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  } @else {
+    <div class="empty">
+      <h3>No products found</h3>
+      <p>Try a different search or category.</p>
+      <button class="button primary" type="button" (click)="searchText = ''; category = 'All'">Clear filters</button>
+    </div>
+  }
+</section>
+
+<section class="story">
+  <div class="story-image" role="img" aria-label="A thoughtfully curated clothing collection"></div>
+  <div class="story-copy">
+    <p class="kicker">Less, but better</p>
+    <h2>Pieces you'll reach for, again and again.</h2>
+    <p>Versatile staples designed to work together and fit naturally into everyday life.</p>
+    <button class="button primary" type="button" (click)="scrollToCatalog()">Find your style →</button>
+  </div>
+</section>

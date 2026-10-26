@@ -1,0 +1,15 @@
+<article class="product-card">
+  <div class="product-art">
+    <a [routerLink]="['/product', product().id]" [attr.aria-label]="'View ' + product().name">
+      <img [src]="product().image" [alt]="product().name" loading="lazy">
+    </a>
+    <button class="quick-add" type="button" (click)="addToBag()">
+      {{ added() ? 'ADDED TO BAG ✓' : 'ADD TO BAG +' }}
+    </button>
+  </div>
+  <div class="product-info">
+    <div class="category">{{ product().category }}</div>
+    <h3><a [routerLink]="['/product', product().id]">{{ product().name }}</a></h3>
+    <strong>{{ product().price | currency:'USD':'symbol':'1.2-2' }}</strong>
+  </div>
+</article>

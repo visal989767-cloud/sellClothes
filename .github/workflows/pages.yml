@@ -1,0 +1,54 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Build Angular application
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          PAGES_BASE_PATH="${PAGES_BASE_PATH#/}"
+          if [ -n "$PAGES_BASE_PATH" ]; then
+            BASE_HREF="/$PAGES_BASE_PATH/"
+          else
+            BASE_HREF="/"
+          fi
+          npm run build -- --base-href "$BASE_HREF"
+          cp dist/threadco/browser/index.html dist/threadco/browser/404.html
+      - name: Upload site files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/threadco/browser
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4

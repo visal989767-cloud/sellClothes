@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.announcement {
+  min-height: 32px;
+  padding: 8px 16px;
+  background: #0b1220;
+  color: #e6efff;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.site-header {
+  color: #f8fafc;
+  background: rgba(15, 23, 42, .98);
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.header-inner {
+  width: min(1320px, calc(100% - 40px));
+  min-height: 68px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.brand {
+  color: #fff;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -.8px;
+  white-space: nowrap;
+}
+
+.brand span {
+  color: #38bdf8;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+.nav a,
+.cart-link {
+  color: #d5deed;
+  font-size: 13px;
+}
+
+.nav a:hover,
+.cart-link:hover {
+  color: #60caff;
+}
+
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .08);
+}
+
+.count {
+  display: grid;
+  min-width: 21px;
+  height: 21px;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 50%;
+  color: #fff;
+  background: #2563eb;
+  font-size: 11px;
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  color: #fff;
+  background: none;
+  font-size: 20px;
+}
+
+@media (max-width: 760px) {
+  .header-inner {
+    min-height: 62px;
+    width: calc(100% - 28px);
+    gap: 12px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    background: #0f172a;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .brand {
+    margin-right: auto;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,196 @@
+.page {
+  width: min(800px, calc(100% - 32px));
+  margin: 22px auto 60px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 14px;
+}
+
+.actions button,
+.actions a {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: #2563eb;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.actions a {
+  color: #101828;
+  background: #e7edf7;
+}
+
+.actions button:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.invoice,
+.empty {
+  padding: 38px;
+  border: 1px solid #e5eaf2;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(16,24,40,.05);
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid #101828;
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.brand span {
+  color: #2563eb;
+}
+
+.muted {
+  color: #687386;
+  font-size: 12px;
+}
+
+.right,
+.right-cell {
+  text-align: right;
+}
+
+.invoice-label,
+.label {
+  color: #687386;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.customer {
+  margin: 24px 0;
+  overflow-wrap: anywhere;
+}
+
+.label {
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+table {
+  width: 100%;
+  margin: 22px 0;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 10px 7px;
+  border-bottom: 1px solid #dfe5ef;
+  text-align: left;
+}
+
+th {
+  background: #f6f8fb;
+  color: #687386;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.totals {
+  width: 270px;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.totals > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 5px 0;
+}
+
+.totals > div span:last-child {
+  white-space: nowrap;
+}
+
+.grand {
+  margin-top: 7px;
+  padding-top: 11px !important;
+  border-top: 2px solid #101828;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.thanks {
+  margin-top: 33px;
+  padding-top: 17px;
+  border-top: 1px solid #dfe5ef;
+  color: #687386;
+  text-align: center;
+}
+
+.thanks p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.empty {
+  text-align: center;
+}
+
+.empty a {
+  color: #2563eb;
+}
+
+@media (max-width: 560px) {
+  .invoice {
+    padding: 22px 14px;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  th,
+  td {
+    padding: 8px 4px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  .page {
+    width: auto;
+    margin: 0;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .invoice {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

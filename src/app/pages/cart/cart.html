@@ -1,0 +1,57 @@
+<section class="page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Your picks</p>
+      <h1>Shopping bag</h1>
+    </div>
+    <span>{{ store.cartCount() }} {{ store.cartCount() === 1 ? 'item' : 'items' }}</span>
+  </div>
+
+  @if (store.cart().length === 0) {
+    <div class="empty">
+      <div class="empty-icon">🛍️</div>
+      <h2>Your bag is waiting.</h2>
+      <p>Discover something you'll love.</p>
+      <a class="button primary" routerLink="/">Continue shopping</a>
+    </div>
+  } @else {
+    <div class="layout">
+      <section class="items" aria-label="Cart items">
+        @for (line of store.cart(); track $index) {
+          @if (productFor(line); as product) {
+            <article class="item">
+              <a [routerLink]="['/product', product.id]" class="item-image">
+                <img [src]="product.image" [alt]="product.name">
+              </a>
+              <div class="item-info">
+                <a class="item-name" [routerLink]="['/product', product.id]">{{ product.name }}</a>
+                <span>{{ product.category }} · Size {{ line.size }}</span>
+                <strong>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</strong>
+                <div class="quantity" aria-label="Quantity">
+                  <button type="button" aria-label="Decrease quantity" [disabled]="line.qty <= 1"
+                    (click)="setQuantity($index, line.qty - 1)">−</button>
+                  <span>{{ line.qty }}</span>
+                  <button type="button" aria-label="Increase quantity" [disabled]="line.qty >= 99"
+                    (click)="setQuantity($index, line.qty + 1)">+</button>
+                </div>
+                <button type="button" class="remove" (click)="store.removeFromCart($index)">Remove</button>
+              </div>
+              <strong class="line-total">{{ (product.price * line.qty) | currency:'USD':'symbol':'1.2-2' }}</strong>
+            </article>
+          }
+        }
+      </section>
+
+      <aside class="summary">
+        <h2>Order summary</h2>
+        <div><span>Subtotal</span><span>{{ store.totals().subtotal | currency:'USD':'symbol':'1.2-2' }}</span></div>
+        <div><span>Shipping</span><span>{{ store.totals().shipping ? (store.totals().shipping | currency:'USD':'symbol':'1.2-2') : 'Free' }}</span></div>
+        <div><span>Tax (8%)</span><span>{{ store.totals().tax | currency:'USD':'symbol':'1.2-2' }}</span></div>
+        <div class="total"><span>Total</span><span>{{ store.totals().total | currency:'USD':'symbol':'1.2-2' }}</span></div>
+        <p>{{ store.totals().shipping === 0 ? "You've qualified for free shipping!" : "Free shipping on orders of $100 or more." }}</p>
+        <a class="button primary full" routerLink="/checkout">Continue to checkout →</a>
+        <a class="back" routerLink="/">Continue shopping</a>
+      </aside>
+    </div>
+  }
+</section>
